@@ -5,9 +5,11 @@ RUN \
     git clone https://github.com/mxe/mxe.git && \
     cd /opt/mxe && \
     NPROC=$(($(nproc)+4)) && \
-    make --jobs=$NPROC JOBS=$NPROC MXE_TARGETS='x86_64-w64-mingw32.static' qtbase && \
+    make --jobs=$NPROC JOBS=$NPROC MXE_TARGETS='x86_64-w64-mingw32.static' qt5  && \
     ln -s /opt/mxe/usr/bin/x86_64-w64-mingw32.static-qmake-qt5 /usr/bin/qmake && \
+    ln -s /opt/mxe/usr/bin/x86_64-w64-mingw32.static-cmake /usr/bin/cmake && \
     qmake --version && \
     exit 0
 
 ENV PATH="${PATH}:/opt/mxe/usr/bin"
+ENV CMAKE_PREFIX_PATH="/opt/mxe/usr/x86_64-w64-mingw32.static/qt5"
